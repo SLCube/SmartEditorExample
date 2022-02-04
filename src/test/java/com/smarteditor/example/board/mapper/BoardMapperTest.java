@@ -20,7 +20,6 @@ public class BoardMapperTest {
 		int num = 0;
 		for (int i = 0; i < 20; i++) {
 			BoardDTO params = new BoardDTO();
-			params.setTitle("mapperTest title");
 			params.setContent("mapperTest content");
 
 			boardMapper.insertBoard(params);
@@ -34,7 +33,6 @@ public class BoardMapperTest {
 		BoardDTO board = boardMapper.getBoardDetail((long) 1);
 
 		System.out.println(board.getBoardSeq());
-		System.out.println(board.getTitle());
 		System.out.println(board.getContent());
 		System.out.println(board.getInsertTime());
 		System.out.println(board.getUpdateTime());
@@ -49,11 +47,10 @@ public class BoardMapperTest {
 
 		if (boardTotalCount > 0) {
 			List<BoardDTO> boardList = boardMapper.getBoardList();
-			if (!CollectionUtils.isEmpty(boardList)) {
+			if (CollectionUtils.isEmpty(boardList) == false) {
 				for (int i = 0; i < boardList.size(); i++) {
 					System.out.println("=======================================");
 					System.out.println(boardList.get(i).getBoardSeq());
-					System.out.println(boardList.get(i).getTitle());
 					System.out.println(boardList.get(i).getContent());
 					System.out.println(boardList.get(i).getInsertTime());
 					System.out.println(boardList.get(i).getUpdateTime());
@@ -67,7 +64,6 @@ public class BoardMapperTest {
 	@Test
 	void testByUpdateBoard() {
 		BoardDTO params = new BoardDTO();
-		params.setTitle("1번게시글 수정 제목");
 		params.setContent("1번게시글 수정 내용");
 		params.setBoardSeq((long) 1);
 
@@ -76,7 +72,6 @@ public class BoardMapperTest {
 		if (result == 1) {
 			BoardDTO board = boardMapper.getBoardDetail((long) 1);
 			System.out.println(board.getBoardSeq());
-			System.out.println(board.getTitle());
 			System.out.println(board.getContent());
 			System.out.println(board.getInsertTime());
 			System.out.println(board.getUpdateTime());

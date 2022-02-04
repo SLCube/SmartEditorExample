@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <script type="text/javascript" src="/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -11,7 +12,7 @@
 		<div id="smarteditor">
 			<textarea name="editorTxt" id="editorTxt" rows="20" cols="10" placeholder="내용을 입력해주세요" style="width: 500px"></textarea>
 		</div>
-		<input type="button" value="제출" onclick="submitPost()" />
+		<input type="button" value="제출" onclick="savePost()" />
 	</form>
 	
 	<script>
@@ -35,11 +36,39 @@
 			let content = document.getElementById("editorTxt").value;
 			
 			if(content == '<p>&nbsp;</p>') {
-				alert("내용을 입력해주세요");
+				alert("내용을 입력해주세요.");
 				oEditors.getById["editorTxt"].exec("FOCUS");
 				return;
 			} else {
 				console.log(content);
+			}
+		}
+		
+		savePost = function() {
+			oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", []);
+			let content = document.getElementById("editorTxt").value;
+			
+			if(content == '<p>&nbsp;</p>') {
+				alert("내용을 입력해주세요.");
+				oEditors.getById["editorTxt"].exec("FOCUS");
+				return;
+			} else {
+				let post = {content : content};
+				
+				$.ajax({
+					url : "/smartEditor/register", 
+					data : post,
+					type : "POST", 
+					datatype : "json", 
+					success : function(data) {
+						console.log('success');
+						alert("저장하였습니다.");
+					}, 
+					error : function(jqXHR, textStatus, errorThrown) {
+						console.log(jqXHR);
+						alert("오류가 발생하였습니다.");
+					}
+				});
 			}
 		}
 	</script>

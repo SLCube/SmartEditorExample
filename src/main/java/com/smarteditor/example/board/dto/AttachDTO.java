@@ -7,10 +7,16 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BoardDTO extends CommonDTO {
+public class AttachDTO extends CommonDTO {
 
+	private Long imgSeq;
+	
 	private Long boardSeq;
 	
-	private String content;
+	private String originalImgName;
+	
+	private String saveImgName;
+	
+	private int imgSize;
 	
 }

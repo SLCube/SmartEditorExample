@@ -3,7 +3,6 @@
 <mapper namespace="com.smarteditor.example.board.mapper.BoardMapper">
 	<sql id="boardColumns">
 		  BOARD_SEQ
-		, TITLE
 		, CONTENT
 		, INSERT_TIME
 		, UPDATE_TIME
@@ -16,7 +15,6 @@
 			  <include refid="boardColumns" />
 		) VALUES (
 			  #{boardSeq}
-			, #{title}
 			, #{content}
 			, NOW()
 			, NULL

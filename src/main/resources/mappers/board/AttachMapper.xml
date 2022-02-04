@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smarteditor.example.board.mapper.AttachMapper">
+	<sql id="imeColumns">
+		  IMG_SEQ
+		, BOARD_SEQ
+		, ORIGINAL_IMG_NAME
+		, SAVE_IMG_NAME
+		, IMG_SIZE
+		, UPDATE_TIME
+		, DELETE_TIME
+		, DELETE_YN
+	</sql>
+</mapper>
