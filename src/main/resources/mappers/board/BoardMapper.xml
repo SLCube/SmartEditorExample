@@ -10,7 +10,7 @@
 		, DELETE_YN
 	</sql>
 	
-	<insert id="insertBoard" parameterType="BoardDTO">
+	<insert id="insertBoard" parameterType="BoardDTO" useGeneratedKeys="true" keyProperty="BOARD_SEQ">
 		INSERT INTO board(
 			  <include refid="boardColumns" />
 		) VALUES (

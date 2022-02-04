@@ -486,8 +486,32 @@
 		fdata.append("filedata", imgFile);
 		
 		jQuery3_4_1.ajax({
-			
-		})
+			url : "",
+			data : fdata, 
+			method : "POST", 
+			enctype: "multipart/formdata; charset=utf-8", 
+			processData : false, 
+			contentType : false, 
+			cache : false, 
+			success : function(data) {
+				let sfileName = data.sFileName;
+				
+				if(result == "200") {
+					let aResult = [];
+					let obj = {"sfileName" : sfileName || ""};
+					aResult.push(obj);
+					setPhotoToEditor(aResult);	// 사진을 에디터에 세팅(기존함수)
+					
+					goReadyMode();	// 초기 사진업로드 준비상태로 되돌리기
+					window.close();
+				} else {
+					alert("사진 업로드에 실패했습니다.");
+				}
+			}, 
+			error : function(xhr, textStatus, errorThrown) {
+				alert("사진 업로드에 실패했습니다.");
+			}
+		});
 	 }
      
  	/**

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.smarteditor.example.board.dto.BoardDTO;
 import com.smarteditor.example.board.mapper.BoardMapper;
@@ -25,6 +26,18 @@ public class BoardService {
 		}
 
 		return (queryResult == 1) ? true : false;
+	}
+	
+	public boolean registerBoard(BoardDTO params, MultipartFile[] files) {
+		int queryResult = 1;
+		
+		// TODO => fileUtils 추가
+		
+		if(registerBoard(params) == false) {
+			return false;
+		}
+		
+		return false;
 	}
 
 	public BoardDTO getBoardDetail(Long boardSeq) {

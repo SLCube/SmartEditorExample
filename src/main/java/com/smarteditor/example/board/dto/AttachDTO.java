@@ -17,6 +17,6 @@ public class AttachDTO extends CommonDTO {
 	
 	private String saveImgName;
 	
-	private int imgSize;
+	private long imgSize;
 	
 }
