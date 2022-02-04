@@ -465,13 +465,30 @@
       * 이미지 업로드 시작
       * 확인 버튼 클릭하면 호출되는 msg
       */
+      // TODO : 커스텀 이미지 업로드 
      function uploadImage (e){
     	 if(!bSupportDragAndDropAPI){
-    		 generalUpload();
+    		 //generalUpload();
+    		 customGeneralUpload();
     	 }else{
-    		 html5Upload();
+    		 //html5Upload();
+    		 customHtml5Upload();
     	 }
      }
+     
+     function customGeneralUpload() {
+		let imgFile = jQuery3_4_1("#uploadInputBox")[0].files[0];
+		
+		let fdata = new FormData();
+		fdata.enctype = "multiple/form-data";
+		fdata.method = "POST";
+		
+		fdata.append("filedata", imgFile);
+		
+		jQuery3_4_1.ajax({
+			
+		})
+	 }
      
  	/**
  	 * jindo에 파일 업로드 사용.(iframe에 Form을 Submit하여 리프레시없이 파일을 업로드하는 컴포넌트)

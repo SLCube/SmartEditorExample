@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smarteditor.example.board.mapper.AttachMapper">
-	<sql id="imeColumns">
+	<sql id="imgColumns">
 		  IMG_SEQ
 		, BOARD_SEQ
 		, ORIGINAL_IMG_NAME
@@ -11,4 +11,50 @@
 		, DELETE_TIME
 		, DELETE_YN
 	</sql>
+	
+	<insert id="insertImg" parameterType="AttachDTO">
+		INSERT INTO img(
+			<include refid="imgColumns" />
+		) VALUES (
+			#{imgSeq}
+			, #{boardSeq}
+			, #{originalImgName}
+			, #{saveImgName}
+			, #{imgSize}
+			, NOW() 
+			, NULL
+			, 'N'
+		)
+	</insert>
+	
+	<select id="selectImgDetail" parameterType="long" resultType="AttachDTO">
+		SELECT 
+			  <include refid="imgColumns" />
+		 FROM img
+		WHERE IMG_SEQ = #{imgSeq}
+		  AND DELETE_YN = 'N'
+	</select>
+	
+	<update id="deleteImg" parameterType="long">
+		UPDATE img
+		   SET DELETE_YN = 'Y'
+		   AND DELETE_TIME = NOW()
+	</update>
+	
+	<select id="selectImgList" parameterType="long" resultType="AttachDTO">
+		SELECT
+			  <include refid="imgColumns" />
+		 FROM img
+		WHERE BOARD_SEQ = #{boardSeq}
+		  AND DELETE_YN = 'N'
+	</select>
+	
+	<select id="selectImgTotalCount" parameterType="long" resultType="int">
+		SELECT
+			  <include refid="imgColumns" />
+		 FROM img
+		WHERE BOARD_SEQ = #{boardSeq}
+		  AND DELETE_YN = 'N'
+	</select>
+	
 </mapper>

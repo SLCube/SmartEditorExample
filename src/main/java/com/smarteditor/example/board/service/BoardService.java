@@ -28,13 +28,13 @@ public class BoardService {
 	}
 
 	public BoardDTO getBoardDetail(Long boardSeq) {
-		return boardMapper.getBoardDetail(boardSeq);
+		return boardMapper.selectBoardDetail(boardSeq);
 	}
 
 	public boolean deleteBoard(Long boardSeq) {
 		int queryResult = 0;
 
-		BoardDTO board = boardMapper.getBoardDetail(boardSeq);
+		BoardDTO board = boardMapper.selectBoardDetail(boardSeq);
 
 		if (board != null && "N".equals(board.getDeleteYn())) {
 			queryResult = boardMapper.deleteBoard(boardSeq);
@@ -46,10 +46,10 @@ public class BoardService {
 	public List<BoardDTO> getBoardList() {
 		List<BoardDTO> boardList = Collections.emptyList();
 
-		int boardTotalCount = boardMapper.getBoardTotalCount();
+		int boardTotalCount = boardMapper.selectBoardTotalCount();
 
 		if (boardTotalCount > 0) {
-			boardList = boardMapper.getBoardList();
+			boardList = boardMapper.selectBoardList();
 		}
 		return boardList;
 	}

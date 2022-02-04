@@ -30,7 +30,7 @@ public class BoardMapperTest {
 
 	@Test
 	void testByGetBoardDetail() {
-		BoardDTO board = boardMapper.getBoardDetail((long) 1);
+		BoardDTO board = boardMapper.selectBoardDetail((long) 1);
 
 		System.out.println(board.getBoardSeq());
 		System.out.println(board.getContent());
@@ -43,10 +43,10 @@ public class BoardMapperTest {
 
 	@Test
 	void testByGetBoardList() {
-		int boardTotalCount = boardMapper.getBoardTotalCount();
+		int boardTotalCount = boardMapper.selectBoardTotalCount();
 
 		if (boardTotalCount > 0) {
-			List<BoardDTO> boardList = boardMapper.getBoardList();
+			List<BoardDTO> boardList = boardMapper.selectBoardList();
 			if (CollectionUtils.isEmpty(boardList) == false) {
 				for (int i = 0; i < boardList.size(); i++) {
 					System.out.println("=======================================");
@@ -70,7 +70,7 @@ public class BoardMapperTest {
 		int result = boardMapper.updateBoard(params);
 
 		if (result == 1) {
-			BoardDTO board = boardMapper.getBoardDetail((long) 1);
+			BoardDTO board = boardMapper.selectBoardDetail((long) 1);
 			System.out.println(board.getBoardSeq());
 			System.out.println(board.getContent());
 			System.out.println(board.getInsertTime());

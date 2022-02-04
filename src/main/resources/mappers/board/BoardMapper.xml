@@ -23,7 +23,7 @@
 		)
 	</insert>
 	
-	<select id="getBoardDetail" parameterType="long" resultType="BoardDTO">
+	<select id="selectBoardDetail" parameterType="long" resultType="BoardDTO">
 		SELECT
 			  <include refid="boardColumns" />
 		 FROM board
@@ -31,7 +31,7 @@
 		  AND DELETE_YN = 'N'
 	</select>
 	
-	<select id="getBoardList" resultType="BoardDTO">
+	<select id="selectBoardList" resultType="BoardDTO">
 		SELECT
 			  <include refid="boardColumns" />
 		 FROM board
@@ -53,7 +53,7 @@
 		 WHERE BOARD_SEQ = #{boardSeq}
 	</update>
 	
-	<select id="getBoardTotalCount" resultType="int">
+	<select id="selectBoardTotalCount" resultType="int">
 		SELECT COUNT(*)
 		  FROM board
 		 WHERE DELETE_YN = 'N'
