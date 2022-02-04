@@ -1,0 +1,57 @@
+package com.smarteditor.example.board.service;
+
+import java.util.Collections;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.smarteditor.example.board.dto.BoardDTO;
+import com.smarteditor.example.board.mapper.BoardMapper;
+
+@Service
+public class BoardService {
+
+	@Autowired
+	private BoardMapper boardMapper;
+
+	public boolean registerBoard(BoardDTO params) {
+		int queryResult = 0;
+
+		if (params.getBoardSeq() == null) {
+			queryResult = boardMapper.insertBoard(params);
+		} else {
+			queryResult = boardMapper.updateBoard(params);
+		}
+
+		return (queryResult == 1) ? true : false;
+	}
+
+	public BoardDTO getBoardDetail(Long boardSeq) {
+		return boardMapper.getBoardDetail(boardSeq);
+	}
+
+	public boolean deleteBoard(Long boardSeq) {
+		int queryResult = 0;
+
+		BoardDTO board = boardMapper.getBoardDetail(boardSeq);
+
+		if (board != null && "N".equals(board.getDeleteYn())) {
+			queryResult = boardMapper.deleteBoard(boardSeq);
+		}
+
+		return (queryResult == 1) ? true : false;
+	}
+
+	public List<BoardDTO> getBoardList() {
+		List<BoardDTO> boardList = Collections.emptyList();
+
+		int boardTotalCount = boardMapper.getBoardTotalCount();
+
+		if (boardTotalCount > 0) {
+			boardList = boardMapper.getBoardList();
+		}
+		return boardList;
+	}
+
+}

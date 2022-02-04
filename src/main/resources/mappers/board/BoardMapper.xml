@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smarteditor.example.board.mapper.BoardMapper">
+	<sql id="boardColumns">
+		  BOARD_SEQ
+		, TITLE
+		, CONTENT
+		, INSERT_TIME
+		, UPDATE_TIME
+		, DELETE_TIME
+		, DELETE_YN
+	</sql>
+	
+	<insert id="insertBoard" parameterType="BoardDTO">
+		INSERT INTO board(
+			  <include refid="boardColumns" />
+		) VALUES (
+			  #{boardSeq}
+			, #{title}
+			, #{content}
+			, NOW()
+			, NULL
+			, NULL
+			, 'N'
+		)
+	</insert>
+	
+	<select id="getBoardDetail" parameterType="long" resultType="BoardDTO">
+		SELECT
+			  <include refid="boardColumns" />
+		 FROM board
+		WHERE BOARD_SEQ = #{boardSeq}
+		  AND DELETE_YN = 'N'
+	</select>
+	
+	<select id="getBoardList" resultType="BoardDTO">
+		SELECT
+			  <include refid="boardColumns" />
+		 FROM board
+		WHERE DELETE_YN = 'N'
+	</select>
+	
+	<update id="updateBoard" parameterType="BoardDTO">
+		UPDATE board
+		   SET TITLE = #{title}
+		     , CONTENT = #{content}
+			 , UPDATE_TIME = NOW()
+		 WHERE BOARD_SEQ = #{boardSeq}
+	</update>
+	
+	<update id="deleteBoard" parameterType="long">
+		UPDATE board
+		   SET DELETE_YN = 'Y'
+		     , DELETE_TIME = NOW()
+		 WHERE BOARD_SEQ = #{boardSeq}
+	</update>
+	
+	<select id="getBoardTotalCount" resultType="int">
+		SELECT COUNT(*)
+		  FROM board
+		 WHERE DELETE_YN = 'N'
+	</select>
+</mapper>
