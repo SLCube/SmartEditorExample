@@ -27,12 +27,14 @@ public class BoardController {
 			boolean isRegistered = boardService.registerBoard(params);
 			
 			if(isRegistered == false) {
-				// TODO => 게시글 등록에 실패하였다는 메시지를 전달
+				System.out.println("게시글 등록에 실패했습니다.");
 			}
 		} catch (DataAccessException e) {
-			// TODO => 데이터베이스 처리 과정에 문제가 발생하였다는 메시지를 전달
+			e.printStackTrace();
+			System.out.println("DB오류");
 		} catch (Exception e) {
-			// TODO => 시스템에 문제가 발생하였다는 메시지를 전달
+			e.printStackTrace();
+			System.out.println("시스템오류");
 		}
 		
 		return "redirect:/smartEditor";
